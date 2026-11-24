@@ -20,10 +20,10 @@ func ParseEnv() error {
 		ServiceCfg.Database.Dsn = values.DatabaseURI
 	}
 	if values.AccrualSystemAddress != "" {
-		ServiceCfg.Client.BaseUrl = values.AccrualSystemAddress
+		ServiceCfg.Client.BaseURL = values.AccrualSystemAddress
 	}
 	if values.RunAddress != "" {
-		if err := ServiceCfg.Http.Set(values.RunAddress); err != nil {
+		if err := ServiceCfg.HTTP.Set(values.RunAddress); err != nil {
 			return fmt.Errorf("RUN_ADDRESS: %w", err)
 		}
 	}

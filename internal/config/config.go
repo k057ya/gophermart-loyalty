@@ -36,7 +36,7 @@ type database struct {
 }
 
 type client struct {
-	BaseUrl string
+	BaseURL string
 }
 
 func (d *database) String() string {
@@ -49,7 +49,7 @@ func (d *database) Set(value string) error {
 }
 
 type ServiceConfig struct {
-	Http     *httpServer
+	HTTP     *httpServer
 	Database *database
 	Client   *client
 }
@@ -59,14 +59,14 @@ func (c *ServiceConfig) Validate() error {
 	if c.Database == nil || strings.TrimSpace(c.Database.Dsn) == "" {
 		errs = append(errs, errors.New("database URI is empty (set DATABASE_URI or pass -d)"))
 	}
-	if c.Client == nil || strings.TrimSpace(c.Client.BaseUrl) == "" {
+	if c.Client == nil || strings.TrimSpace(c.Client.BaseURL) == "" {
 		errs = append(errs, errors.New("accrual system address is empty (set ACCRUAL_SYSTEM_ADDRESS or pass -r)"))
 	}
 	return errors.Join(errs...)
 }
 
 var ServiceCfg = &ServiceConfig{
-	Http:     &httpServer{Address: "localhost", Port: 8080},
+	HTTP:     &httpServer{Address: "localhost", Port: 8080},
 	Database: &database{},
-	Client:   &client{BaseUrl: "http://localhost:8081"},
+	Client:   &client{BaseURL: "http://localhost:8081"},
 }

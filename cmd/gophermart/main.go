@@ -57,7 +57,7 @@ func main() {
 	// Start http server
 	serverLogger := logger.Named("http")
 	server := &http.Server{
-		Addr:    config.ServiceCfg.Http.String(),
+		Addr:    config.ServiceCfg.HTTP.String(),
 		Handler: service.NewRouter(storage, serverLogger),
 	}
 	serverDone := make(chan error, 1)
@@ -68,7 +68,7 @@ func main() {
 	// Run accrual client
 	clientLogger := logger.Named("accrual")
 	client := accrual.NewClient(
-		accrual.NewHTTPClient(config.ServiceCfg.Client.BaseUrl),
+		accrual.NewHTTPClient(config.ServiceCfg.Client.BaseURL),
 		storage,
 		clientLogger,
 	)
