@@ -21,3 +21,11 @@ vendor/
 # IDEs directories
 .idea
 .vscode
+.zed
+
+# локальные файлы для разработки
+docker-compose.yml
+postgres_data/
+
+# локальная заглушка accrual
+/seed_accrual.*
