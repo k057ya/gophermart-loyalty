@@ -73,13 +73,15 @@ func Log(log *zap.SugaredLogger) func(next http.Handler) http.Handler {
 			next.ServeHTTP(lw, r)
 
 			since := time.Since(start)
+			headers := r.Header.Clone()
+			headers.Del("Authorization")
 
 			log.Infow("REQUEST",
 				zap.String("uri", uri),
 				zap.String("method", method),
 				zap.ByteString("body", body),
 				zap.String("time", since.String()),
-				zap.Any("headers", headers),
+				zap.Any("headers", r.Header),
 			)
 
 			log.Infow("RESPONSE",
