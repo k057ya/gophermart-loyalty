@@ -55,7 +55,7 @@ func (s *DBStorage) OrdersGetForProcessing(ctx context.Context) []model.Order {
 	return orders
 }
 
-func (storage *DBStorage) OrdersUpdate(ctx context.Context, batch []model.Order) error {
+func (s *DBStorage) OrdersUpdate(ctx context.Context, batch []model.Order) error {
 	// TODO
 	return nil
 }

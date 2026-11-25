@@ -79,7 +79,7 @@ func Log(log *zap.SugaredLogger) func(next http.Handler) http.Handler {
 				zap.String("method", method),
 				zap.ByteString("body", body),
 				zap.String("time", since.String()),
-				zap.Any("headers", r.Header),
+				zap.Any("headers", headers),
 			)
 
 			log.Infow("RESPONSE",

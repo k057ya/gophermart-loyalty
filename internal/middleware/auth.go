@@ -13,7 +13,7 @@ import (
 
 type authUserID struct{}
 
-func GetAuthenticatedUserId(ctx context.Context) (int64, bool) {
+func GetAuthenticatedUserID(ctx context.Context) (int64, bool) {
 	id, ok := ctx.Value(authUserID{}).(int64)
 	return id, ok
 }
