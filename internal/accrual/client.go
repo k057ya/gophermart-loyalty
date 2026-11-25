@@ -174,7 +174,7 @@ func (c Client) collector(ctx context.Context, ochan chan model.Order) {
 	defer close(ochan)
 
 	for ctx.Err() == nil {
-		for _, order := range c.Storage.GetOrdersToProcess(ctx) {
+		for _, order := range c.Storage.OrdersGetForProcessing(ctx) {
 			select {
 			case <-ctx.Done():
 				return
@@ -309,7 +309,7 @@ func (c Client) updater(ctx context.Context, bchan <-chan []model.Order) {
 			if !ok {
 				return
 			}
-			err := c.Storage.UpdateOrders(ctx, batch)
+			err := c.Storage.OrdersUpdate(ctx, batch)
 			if err != nil {
 				c.Log.Warn("error updating orders", err)
 			}

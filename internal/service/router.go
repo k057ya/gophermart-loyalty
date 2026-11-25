@@ -31,29 +31,29 @@ func NewRouter(storage *repository.DBStorage, log *zap.SugaredLogger) *chi.Mux {
 		}
 	}
 
-	router.Route("api/user", func(r chi.Router) {
+	router.Route("/api/user", func(r chi.Router) {
 		// Register
-		r.Post("register", wrap(handler.Register))
+		r.Post("/register", wrap(handler.Register))
 		// Login
-		r.Post("login", wrap(handler.Login))
+		r.Post("/login", wrap(handler.Login))
 
 		r.Group(func(r chi.Router) {
 			// Under auth
-			r.Use(middleware.Auth(log.Named("auth")))
+			r.Use(middleware.Auth(storage, log.Named("auth")))
 			// Orders create
-			r.Post("orders", wrap(handler.Order))
+			r.Post("/orders", wrap(handler.Order))
 			// Orders list
-			r.Get("orders", wrap(handler.OrdersList))
+			r.Get("/orders", wrap(handler.OrdersList))
 
-			r.Route("balance", func(r chi.Router) {
+			r.Route("/balance", func(r chi.Router) {
 				// balance get
 				r.Get("/", wrap(handler.Balance))
 				// withdraw
-				r.Post("widthdraw", wrap(handler.Withdraw))
+				r.Post("/withdraw", wrap(handler.Withdraw))
 			})
 
 			// Withdrawals list
-			r.Get("widthdrawals", wrap(handler.WithdrawalsList))
+			r.Get("/withdrawals", wrap(handler.WithdrawalsList))
 		})
 	})
 	return router
